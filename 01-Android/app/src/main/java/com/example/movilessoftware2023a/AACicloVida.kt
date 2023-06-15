@@ -17,6 +17,8 @@ class AACicloVida : AppCompatActivity() {
     private lateinit var binding: ActivityAacicloVidaBinding
     var textoGlobal = ""
 
+    //OJITO
+
     fun mostrarSnackBar(text: String) {
         textoGlobal += text
         Snackbar.make(
