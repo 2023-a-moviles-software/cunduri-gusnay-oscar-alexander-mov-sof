@@ -1,0 +1,23 @@
+[
+  {
+    "productID": 1,
+    "productName": "Televisor",
+    "price": 200.65,
+    "isAvailable": true,
+    "productType": "a"
+  },
+  {
+    "productID": 2,
+    "productName": "Celular",
+    "price": 150.62,
+    "isAvailable": false,
+    "productType": "c"
+  },
+  {
+    "productID": 3,
+    "productName": "Laptop",
+    "price": 220.0,
+    "isAvailable": true,
+    "productType": "L"
+  }
+]

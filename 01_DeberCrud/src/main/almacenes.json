@@ -1,0 +1,80 @@
+[
+  {
+    "storeID": 1,
+    "storeName": "Mi Almacén 1",
+    "storeLocation": "La victoria",
+    "products": [
+      {
+        "productID": 1,
+        "productName": "Televisor",
+        "price": 200.65,
+        "isAvailable": true,
+        "productType": "a"
+      }
+    ],
+    "isOpen": true,
+    "storeValue": 5000.0
+  },
+  {
+    "storeID": 2,
+    "storeName": "Ya funciona?",
+    "storeLocation": "La misma",
+    "products": [
+      {
+        "productID": 1,
+        "productName": "Televisor",
+        "price": 200.65,
+        "isAvailable": true,
+        "productType": "a"
+      },
+      {
+        "productID": 2,
+        "productName": "Celular",
+        "price": 150.62,
+        "isAvailable": false,
+        "productType": "c"
+      }
+    ],
+    "isOpen": true,
+    "storeValue": 50100.0
+  },
+  {
+    "storeID": 3,
+    "storeName": "Artefacta",
+    "storeLocation": "La carolina",
+    "products": [],
+    "isOpen": true,
+    "storeValue": 1000.0
+  },
+  {
+    "storeID": 4,
+    "storeName": "EPN market",
+    "storeLocation": "Alado de la poli",
+    "products": [],
+    "isOpen": true,
+    "storeValue": 653.54
+  },
+  {
+    "storeID": 5,
+    "storeName": "Ya mismito",
+    "storeLocation": "Avenida siempre viva",
+    "products": [
+      {
+        "productID": 3,
+        "productName": "Laptop",
+        "price": 220.0,
+        "isAvailable": true,
+        "productType": "L"
+      },
+      {
+        "productID": 1,
+        "productName": "Televisor",
+        "price": 200.65,
+        "isAvailable": true,
+        "productType": "a"
+      }
+    ],
+    "isOpen": true,
+    "storeValue": 999999.99
+  }
+]
