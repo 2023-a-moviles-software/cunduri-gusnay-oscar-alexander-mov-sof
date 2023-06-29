@@ -19,5 +19,19 @@
     "price": 220.0,
     "isAvailable": true,
     "productType": "L"
+  },
+  {
+    "productID": 4,
+    "productName": "Telefono",
+    "price": 598.65,
+    "isAvailable": true,
+    "productType": "T"
+  },
+  {
+    "productID": 5,
+    "productName": "Motocicleta",
+    "price": 6850.65,
+    "isAvailable": true,
+    "productType": "M"
   }
 ]

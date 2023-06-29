@@ -10,6 +10,13 @@
         "price": 200.65,
         "isAvailable": true,
         "productType": "a"
+      },
+      {
+        "productID": 4,
+        "productName": "Telefono",
+        "price": 598.65,
+        "isAvailable": true,
+        "productType": "T"
       }
     ],
     "isOpen": true,
@@ -42,39 +49,32 @@
     "storeID": 3,
     "storeName": "Artefacta",
     "storeLocation": "La carolina",
-    "products": [],
+    "products": [
+      {
+        "productID": 5,
+        "productName": "Motocicleta",
+        "price": 6850.65,
+        "isAvailable": true,
+        "productType": "M"
+      }
+    ],
     "isOpen": true,
     "storeValue": 1000.0
   },
   {
     "storeID": 4,
-    "storeName": "EPN market",
-    "storeLocation": "Alado de la poli",
+    "storeName": "Test",
+    "storeLocation": "Test",
     "products": [],
     "isOpen": true,
-    "storeValue": 653.54
+    "storeValue": 69854.32
   },
   {
     "storeID": 5,
-    "storeName": "Ya mismito",
-    "storeLocation": "Avenida siempre viva",
-    "products": [
-      {
-        "productID": 3,
-        "productName": "Laptop",
-        "price": 220.0,
-        "isAvailable": true,
-        "productType": "L"
-      },
-      {
-        "productID": 1,
-        "productName": "Televisor",
-        "price": 200.65,
-        "isAvailable": true,
-        "productType": "a"
-      }
-    ],
+    "storeName": "Test",
+    "storeLocation": "Test",
+    "products": [],
     "isOpen": true,
-    "storeValue": 999999.99
+    "storeValue": 985.32
   }
 ]
