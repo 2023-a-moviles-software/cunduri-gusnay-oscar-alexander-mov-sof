@@ -85,7 +85,7 @@ class ElectrodomesticoViewHolder(view: View) : RecyclerView.ViewHolder(view),
                     producto.productID == txtIdProducto.text.toString().toInt()
                 }
                 if (producto != null) {
-                    almacen.products.remove(producto)
+                    almacen.products!!.remove(producto)
                 }
                 adapter.notifyDataSetChanged()
                 true

@@ -8,7 +8,7 @@ import com.example.examenib.models.Almacen
 import com.example.examenib.models.Electrodomestico
 
 class ElectrodomesticoAdapter(
-    private val electrodomesticoList: List<Electrodomestico>
+    private val electrodomesticoList: MutableList<Electrodomestico>
 ) : RecyclerView.Adapter<ElectrodomesticoViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElectrodomesticoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

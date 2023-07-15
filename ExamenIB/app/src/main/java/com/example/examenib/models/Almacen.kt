@@ -4,7 +4,7 @@ class Almacen(
     var storeID: Int?,
     var storeName: String?,
     val storeLocation: String?,
-    val products: MutableList<Electrodomestico>?,
+    var products: MutableList<Electrodomestico>?,
     var isOpen: Boolean,
     var storeValue: Double
 ) {

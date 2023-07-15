@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.examenib.adapter.AlmacenAdapter
 import com.example.examenib.adapter.AlmacenViewHolder
 import com.example.examenib.models.Almacen
+import com.example.examenib.models.Electrodomestico
 import com.example.examenib.providers.AlmacenProvider
 
 class MainActivity : AppCompatActivity() {
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 AlmacenProvider.almacenesList.size + 1,
                 nombreAlmacen,
                 direccionAlmacen,
-                null,
+                mutableListOf(),
                 false,
                 precioAlmacen
             )

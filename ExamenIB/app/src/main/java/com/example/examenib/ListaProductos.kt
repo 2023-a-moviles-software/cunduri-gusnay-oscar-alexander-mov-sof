@@ -63,7 +63,9 @@ class ListaProductos : AppCompatActivity() {
             if (listaElectro != null) {
                 listaElectro.add(nuevoProducto)
             }
+
             adapter.notifyDataSetChanged()
+
         }
     }
 
@@ -77,13 +79,14 @@ class ListaProductos : AppCompatActivity() {
             idAlmacenAux = id
         }
 
-        if(id?.let { getAlmacenById(it)?.products?.isEmpty() } == false){
-            adapter = id.let { getAlmacenById(it)?.products?.let { ElectrodomesticoAdapter(it) } }!!
+        val listaElectro = id?.let { getAlmacenById(it)?.products }
+
+            adapter = listaElectro?.let { ElectrodomesticoAdapter(it) }!!
             recyclerViewElctrodomesticos.layoutManager = LinearLayoutManager(this)
             recyclerViewElctrodomesticos.adapter = adapter
             ElectrodomesticoViewHolder.setAdapter(adapter)
             ActualizarElectrodomestico.setAdapter(adapter)
-        }
+
 
     }
 
