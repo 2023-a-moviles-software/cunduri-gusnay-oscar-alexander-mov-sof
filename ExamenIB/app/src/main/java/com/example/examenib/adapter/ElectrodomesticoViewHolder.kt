@@ -19,9 +19,9 @@ class ElectrodomesticoViewHolder (view: View): RecyclerView.ViewHolder(view){
     fun render(electrodomestico: Electrodomestico){
         txtIdProducto.text = electrodomestico.productID.toString()
         txtNombreProducto.text = electrodomestico.productName
-        txtCantidad.text = electrodomestico.cantidad.toString()
+        txtCantidad.text = "Cantidad: ${electrodomestico.cantidad.toString()}"
         txtprecio.text = electrodomestico.price.toString()
-        txtCategoria.text = electrodomestico.productType.toString()
+        txtCategoria.text = "Categoria ${electrodomestico.productType.toString()}"
 
     }
 }

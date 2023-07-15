@@ -1,19 +1,32 @@
 package com.example.examenib.models
 
 class Almacen(
-    val storeID: Int?,
-    val storeName: String?,
+    var storeID: Int?,
+    var storeName: String?,
     val storeLocation: String?,
     val products: List<Electrodomestico>?,
-    val isOpen: Boolean,
-    val storeValue: Double
+    var isOpen: Boolean,
+    var storeValue: Double
 ) {
     init {
-        this.storeID
+        if(this.storeID == null){
+            this.storeID = setId()
+        }else{
+            this.storeID
+        }
         this.storeName
         this.storeLocation
         this.products
         this.isOpen
         this.storeValue
+    }
+
+    companion object{
+        var idCounter = 0
+    }
+
+    private fun setId():Int{
+       idCounter++
+       return idCounter
     }
 }

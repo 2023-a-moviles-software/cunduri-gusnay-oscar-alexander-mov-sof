@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.examenib.R
+import com.example.examenib.models.Almacen
 import com.example.examenib.models.Electrodomestico
 
 class ElectrodomesticoAdapter(

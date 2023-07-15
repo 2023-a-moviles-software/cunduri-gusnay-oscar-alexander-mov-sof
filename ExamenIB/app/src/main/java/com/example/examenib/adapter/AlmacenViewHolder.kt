@@ -12,11 +12,13 @@ import android.view.View
 import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
+import com.example.examenib.ActualizarAlmacen
 
 import com.example.examenib.ListaProductos
 
 import com.example.examenib.R
 import com.example.examenib.models.Almacen
+import com.example.examenib.providers.AlmacenProvider
 
 class AlmacenViewHolder(view: View) : RecyclerView.ViewHolder(view),
     View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
@@ -30,6 +32,14 @@ class AlmacenViewHolder(view: View) : RecyclerView.ViewHolder(view),
         view.setOnCreateContextMenuListener(this)
     }
 
+    companion object {
+        private lateinit var adapter: AlmacenAdapter
+
+        fun setAdapter(almacenAdapter: AlmacenAdapter) {
+            adapter = almacenAdapter
+        }
+    }
+
     fun render(almacen: Almacen) {
         idAlmacen.text = "Almacen ${almacen.storeID.toString()}"
         nombreAlmacen.text = almacen.storeName
@@ -38,9 +48,7 @@ class AlmacenViewHolder(view: View) : RecyclerView.ViewHolder(view),
     }
 
     override fun onCreateContextMenu(
-        menu: ContextMenu?,
-        v: View?,
-        menuInfo: ContextMenu.ContextMenuInfo?
+        menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         val inflater = MenuInflater(v?.context)
         inflater.inflate(R.menu.menu_tools, menu)
@@ -55,20 +63,31 @@ class AlmacenViewHolder(view: View) : RecyclerView.ViewHolder(view),
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.ver_productos -> {
-                val idAlmacen = idAlmacen // Obtén el idAlmacen del objeto Almacen actual
+                val idAux = idAlmacen.text
+                val nombreAlmacen = nombreAlmacen.text
                 val intent = Intent(itemView.context, ListaProductos::class.java)
-                intent.putExtra("id", idAlmacen.toString())
+                intent.putExtra("idAProducto", idAux)
+                intent.putExtra("nombre", nombreAlmacen)
                 itemView.context.startActivity(intent)
                 true
             }
 
             R.id.editar_almacen -> {
-                // Acción para editar almacén
+                val idAux = idAlmacen.text.split(" ")[1]
+                val intent = Intent(itemView.context, ActualizarAlmacen::class.java)
+                intent.putExtra("idAProducto", idAux)
+                itemView.context.startActivity(intent)
                 true
             }
 
             R.id.eliminar_almacen -> {
-                // Acción para eliminar almacén
+                val idAux = idAlmacen.text.split(" ").get(1).toInt()
+                AlmacenProvider.almacenesList.remove(
+                    AlmacenProvider.almacenesList.find { almance ->
+                        almance.storeID == idAux
+                    })
+
+                adapter.notifyDataSetChanged()
                 true
             }
 

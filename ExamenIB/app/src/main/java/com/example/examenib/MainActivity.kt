@@ -8,12 +8,12 @@ import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.examenib.adapter.AlmacenAdapter
+import com.example.examenib.adapter.AlmacenViewHolder
 import com.example.examenib.models.Almacen
 import com.example.examenib.providers.AlmacenProvider
 
 class MainActivity : AppCompatActivity() {
 
-    private var almacenesLista: MutableList<Almacen> = AlmacenProvider.almacenesList.toMutableList()
     private lateinit var adapter: AlmacenAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,9 +32,11 @@ class MainActivity : AppCompatActivity() {
 
     fun initRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.rv_almacenes)
-        adapter = AlmacenAdapter(almacenesLista)
+        adapter = AlmacenAdapter(AlmacenProvider.almacenesList)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+        AlmacenViewHolder.setAdapter(adapter)
+        ActualizarAlmacen.setAdapter(adapter)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -45,20 +47,20 @@ class MainActivity : AppCompatActivity() {
             val precioAlmacen = data.getDoubleExtra("precio", 0.0)
 
             val nuevoAlmacen = Almacen(
-                almacenesLista.size + 1,
+                AlmacenProvider.almacenesList.size + 1,
                 nombreAlmacen,
                 direccionAlmacen,
                 null,
                 false,
                 precioAlmacen
             )
-            almacenesLista.add(nuevoAlmacen)
+            AlmacenProvider.almacenesList.add(nuevoAlmacen)
             adapter.notifyDataSetChanged()
         }
     }
 
     companion object {
-        private const val CREATE_ALMACEN = 1001
+        private const val CREATE_ALMACEN = 1
     }
 
 
