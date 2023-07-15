@@ -28,6 +28,7 @@ class AlmacenViewHolder(view: View) : RecyclerView.ViewHolder(view),
     private val ubicacionAlmacen = view.findViewById<TextView>(R.id.txt_Direccion)
     private val isOpenAlmacen = view.findViewById<TextView>(R.id.txt_isOpen)
 
+
     init {
         view.setOnCreateContextMenuListener(this)
     }
@@ -45,6 +46,7 @@ class AlmacenViewHolder(view: View) : RecyclerView.ViewHolder(view),
         nombreAlmacen.text = almacen.storeName
         ubicacionAlmacen.text = almacen.storeLocation
         isOpenAlmacen.text = if (almacen.isOpen) "Abierto" else "Cerrado"
+
     }
 
     override fun onCreateContextMenu(
