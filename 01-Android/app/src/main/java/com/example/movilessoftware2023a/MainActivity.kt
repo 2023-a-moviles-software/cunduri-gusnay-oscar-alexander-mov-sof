@@ -93,6 +93,19 @@ class MainActivity : AppCompatActivity() {
         botonRecyclerV.setOnClickListener{
             irActividad(FRecyclerView::class.java)
         }
+
+        val botonGoogleMaps = findViewById<Button>(R.id.btn_gmaps)
+
+        botonGoogleMaps.setOnClickListener{
+            irActividad(GGoogleMaps::class.java)
+        }
+
+        val btnFirebaseUIAuth = findViewById<Button>(R.id.btn_intent_firebase_ui)
+
+        btnFirebaseUIAuth.setOnClickListener{
+            irActividad(HFirebaseUIAuth::class.java)
+        }
+
     }
 
     fun irActividad(clase: Class<*>) {
