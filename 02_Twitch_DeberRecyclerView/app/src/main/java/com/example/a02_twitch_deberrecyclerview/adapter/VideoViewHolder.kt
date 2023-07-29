@@ -15,11 +15,13 @@ class VideoViewHolder(val view: View): RecyclerView.ViewHolder(view){
     val txtNombreCanl = view.findViewById<TextView>(R.id.tv_nombre_canal)
     val txtDescripcion = view.findViewById<TextView>(R.id.tv_descripcion_stream)
     val txtJuego = view.findViewById<TextView>(R.id.tv_juego_stream)
+    val txtViewers = view.findViewById<TextView>(R.id.tv_counter_viewers)
     fun render(video: Video){
         txtNombreCanl.text = video.nombreCanal
         txtDescripcion.text = video.descripcionStream
         txtJuego.text = video.juego
         Glide.with(vistaPrevia.context).load(video.imgLink).centerCrop().into(vistaPrevia)
         Glide.with(iconoCanal.context).load(video.iconoCanal).into(iconoCanal)
+        txtViewers.text = video.views
     }
 }

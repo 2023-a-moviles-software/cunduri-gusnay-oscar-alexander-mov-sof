@@ -6,7 +6,8 @@ class Video(
     val iconoCanal: String,
     val descripcionStream: String,
     val juego: String,
-    val categorias: Array<String>
+    val categorias: Array<String>,
+    val views: String
 ) {
     init {
         this.imgLink
@@ -15,5 +16,6 @@ class Video(
         this.descripcionStream
         this.juego
         this.categorias
+        this.views
     }
 }

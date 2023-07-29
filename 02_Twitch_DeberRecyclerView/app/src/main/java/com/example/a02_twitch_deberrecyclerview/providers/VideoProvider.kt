@@ -13,7 +13,8 @@ class VideoProvider {
                 "https://static-cdn.jtvnw.net/jtv_user_pictures/375c4db6-af2a-489e-842a-5e5b3ce287a2-profile_image-70x70.png",
                 "LCQ Pacific - Day 4",
                 "VALORANT",
-                arrayOf("VCTPacific", "VCT")
+                arrayOf("VCTPacific", "VCT"),
+                "49.7k"
             ),
             Video(
                 "https://static-cdn.jtvnw.net/previews-ttv/live_user_horcus-640x360.jpg",
@@ -21,7 +22,8 @@ class VideoProvider {
                 "https://static-cdn.jtvnw.net/jtv_user_pictures/f60cc94c-c494-46ce-b6eb-8ded08a292fd-profile_image-70x70.png",
                 "LCQ Pacific - Day 4",
                 "VALORANT",
-                arrayOf("Español", "España", "Valorant")
+                arrayOf("Español", "España", "Valorant"),
+                "12.3k"
             ),
             Video(
                 "https://static-cdn.jtvnw.net/previews-ttv/live_user_horcus-640x360.jpg",
@@ -29,7 +31,8 @@ class VideoProvider {
                 "https://static-cdn.jtvnw.net/jtv_user_pictures/f60cc94c-c494-46ce-b6eb-8ded08a292fd-profile_image-70x70.png",
                 "LCQ Pacific - Day 4",
                 "VALORANT",
-                arrayOf("Español", "España", "Valorant")
+                arrayOf("Español", "España", "Valorant"),
+                "9.5k"
             )
         )
 

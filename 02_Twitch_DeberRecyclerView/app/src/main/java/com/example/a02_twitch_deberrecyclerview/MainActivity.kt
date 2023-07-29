@@ -1,8 +1,11 @@
 package com.example.a02_twitch_deberrecyclerview
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore.Video
+import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,31 +20,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val userIconURL = "https://www.vhv.rs/dpng/d/436-4361990_user-icon-png-person-icon-png-transparent-png.png"
-        val massageIconURL = "https://cdn.icon-icons.com/icons2/3390/PNG/512/twitch_icon_213275.png"
-        val notificationIconURL = "https://img.icons8.com/?size=512&id=H1UeFcv5ogFU&format=png"
+        val ivIcono = findViewById<ImageView>(R.id.iv_icono_twitch)
+        val twitchIconURL = "https://i0.wp.com/senpai.com.mx/wp-content/uploads/2020/03/Cuarentena-por-coranivurus-aumenta-el-consumo-de-Twitch-en-el-mundo.jpg?fit=1280%2C720&ssl=1"
+        Glide.with(ivIcono.context).load(twitchIconURL).into(ivIcono)
 
-        val iconoUsuario = findViewById<ImageView>(R.id.iv_icono_usuario)
-        val iconoNotificacion = findViewById<ImageView>(R.id.iv_icono_notificacion)
-        val iconoMensaje = findViewById<ImageView>(R.id.iv_icono_mensajes)
-
-        Glide.with(iconoUsuario.context).load(userIconURL).into(iconoUsuario)
-        Glide.with(iconoNotificacion.context).load(notificationIconURL).into(iconoNotificacion)
-        Glide.with(iconoMensaje.context).load(massageIconURL).into(iconoMensaje)
-
-        initRecyclerView()
-        initRecyclerViewCategorias()
-    }
-
-    private fun initRecyclerView(){
-        val rv = findViewById<RecyclerView>(R.id.rv_canales_siguiendo)
-        rv.layoutManager = LinearLayoutManager(this)
-        rv.adapter = VideoAdapter(VideoProvider.listaVideosSiguiendo)
-    }
-
-    private fun initRecyclerViewCategorias(){
-        val rvc = findViewById<RecyclerView>(R.id.rv_categorias)
-        rvc.layoutManager = GridLayoutManager(this, 4)
-        rvc.adapter = CategoriaAdapter(VideoProvider.listaCategoriasSiguiendo)
+        Handler().postDelayed({
+            val intent = Intent(this, MenuPrincipal::class.java)
+            startActivity(intent)
+            finish()
+        }, 3000)
     }
 }
