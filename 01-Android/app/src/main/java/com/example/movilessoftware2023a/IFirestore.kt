@@ -5,15 +5,17 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.Date
 
 class IFirestore : AppCompatActivity() {
 
-    val query: Query? = null
+    var query: Query? = null
     val arreglo: ArrayList<ICities> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,15 +43,63 @@ class IFirestore : AppCompatActivity() {
         botonObtenerUnDocumento.setOnClickListener { consultarDocumento(adaptador) }
 
         val botoneIndiceCompuesto = findViewById<Button>(R.id.btn_fs_ind_comp)
-        botoneIndiceCompuesto.setOnClickListener{ consultarIndiceCompuesto(adaptador) }
+        botoneIndiceCompuesto.setOnClickListener { consultarIndiceCompuesto(adaptador) }
 
 
         val botonCrear = findViewById<Button>(R.id.btn_fs_crear)
-        botonCrear.setOnClickListener{ crearEjemplo() }
+        botonCrear.setOnClickListener { crearEjemplo() }
 
         val botonEliminar = findViewById<Button>(R.id.btn_fs_eliminar)
-        botonEliminar.setOnClickListener{ eliminar() }
+        botonEliminar.setOnClickListener { eliminar() }
 
+        //EMPEZAR A PAGINAR
+
+        val botonEmpezarPaginar = findViewById<Button>(R.id.btn_fs_epaginar)
+        botonEmpezarPaginar.setOnClickListener {
+            query = null; consultarCiudades(adaptador)
+        }
+
+        val botonPaginar = findViewById<Button>(R.id.btn_fs_paginar)
+        botonPaginar.setOnClickListener { consultarCiudades(adaptador) }
+
+    }
+
+    private fun consultarCiudades(adaptador: ArrayAdapter<ICities>) {
+        val db = Firebase.firestore
+        val citiesRef = db.collection("cities")
+            .orderBy("population")
+            .limit(1)
+        var tarea: Task<QuerySnapshot>? = null
+        if (query == null) {
+            limpiarArreglo()
+            adaptador.notifyDataSetChanged()
+            tarea = citiesRef.get()
+        } else {
+            tarea = query!!.get()
+        }
+        if (tarea != null) {
+            tarea
+                .addOnSuccessListener { documentSnapshots ->
+                    guardarQuery(documentSnapshots, citiesRef)
+                    for (ciudad in documentSnapshots) {
+                        anadirArregloCiudad(ciudad)
+                    }
+                    adaptador.notifyDataSetChanged()
+                }
+                .addOnFailureListener { }
+        }
+    }
+
+    private fun guardarQuery(
+        documentSnapshot: QuerySnapshot,
+        refCities: Query
+    ) {
+        if (documentSnapshot.size() > 0) {
+            val ultimoDocumento = documentSnapshot
+                .documents[documentSnapshot.size() - 1]
+            query = refCities
+                .startAfter(ultimoDocumento)
+        }
     }
 
     private fun eliminar() {
@@ -58,8 +108,8 @@ class IFirestore : AppCompatActivity() {
         referenciaEjemploEstudiante
             .document("12345678")
             .delete()
-            .addOnSuccessListener {  }
-            .addOnFailureListener {  }
+            .addOnSuccessListener { }
+            .addOnFailureListener { }
     }
 
     private fun crearEjemplo() {
@@ -80,19 +130,19 @@ class IFirestore : AppCompatActivity() {
         refenciaEjemploEstudiante
             .document("12345678")
             .set(datosEstudiante)
-            .addOnSuccessListener {  }
-            .addOnFailureListener{  }
+            .addOnSuccessListener { }
+            .addOnFailureListener { }
         //identficiador quemado pero autogenerado con el Date.time CREAR - ACTUALIZAR
         refenciaEjemploEstudiante
             .document(identificador.toString())
             .set(datosEstudiante)
-            .addOnSuccessListener {  }
-            .addOnFailureListener {  }
+            .addOnSuccessListener { }
+            .addOnFailureListener { }
         //SIN IDENTIFICADOR  CREAR
         refenciaEjemploEstudiante
             .add(datosEstudiante)
-            .addOnSuccessListener {  }
-            .addOnFailureListener {  }
+            .addOnSuccessListener { }
+            .addOnFailureListener { }
     }
 
     private fun consultarIndiceCompuesto(adaptador: ArrayAdapter<ICities>) {
@@ -106,12 +156,12 @@ class IFirestore : AppCompatActivity() {
             .orderBy("population", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener {
-                for (ciudad in it){
+                for (ciudad in it) {
                     anadirArregloCiudad(ciudad)
                 }
                 adaptador.notifyDataSetChanged()
             }
-            .addOnFailureListener{  }
+            .addOnFailureListener { }
     }
 
     fun consultarDocumento(
@@ -126,20 +176,20 @@ class IFirestore : AppCompatActivity() {
             .document("BJ")
             .get() // obtiene un solo documento
             .addOnSuccessListener { //it es un objeto, ya no hay arreglo
-                 arreglo
-                     .add(
-                         ICities(
-                             it.data?.get("name") as String?,
-                             it.data?.get("state") as String?,
-                             it.data?.get("country") as String?,
-                             it.data?.get("capital") as Boolean?,
-                             it.data?.get("pupulation") as Long?,
-                             it.data?.get("regions") as ArrayList<String>?
-                         )
-                     )
+                arreglo
+                    .add(
+                        ICities(
+                            it.data?.get("name") as String?,
+                            it.data?.get("state") as String?,
+                            it.data?.get("country") as String?,
+                            it.data?.get("capital") as Boolean?,
+                            it.data?.get("pupulation") as Long?,
+                            it.data?.get("regions") as ArrayList<String>?
+                        )
+                    )
                 adaptador.notifyDataSetChanged()
             }
-            .addOnFailureListener{  }
+            .addOnFailureListener { }
 
     }
 
