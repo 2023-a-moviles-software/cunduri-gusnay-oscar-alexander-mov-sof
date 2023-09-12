@@ -58,20 +58,19 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(
         values.put("isOpen", if (almacen.isOpen) 1 else 0)
         values.put("storeValue", almacen.storeValue)
 
-        // Insertar el registro en la tabla "almacenes"
         val newRowId = db.insert("almacen", null, values)
         db.close()
 
         if (newRowId != -1L) {
-            // La inserción fue exitosa, newRowId contiene el ID de la fila recién insertada
+
             Log.d("SQLite", "Registro creado con ID: $newRowId")
         } else {
-            // Ocurrió un error en la inserción
+
             Log.e("SQLite", "Error al insertar el registro en la base de datos")
         }
     }
 
-    // Función para agregar un nuevo Electrodomestico
+
     fun addElectrodomestico(electrodomestico: Electrodomestico, almacenID: Int) {
         val values = ContentValues()
         val db = this.writableDatabase
@@ -82,7 +81,6 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(
         values.put("isAvailable", if (electrodomestico.isAvailable == true) 1 else 0)
         values.put("storeID", almacenID)
 
-        // Insertar el registro en la tabla "electrodomesticos"
         db.insert("electrodomesticos", null, values)
         db.close()
     }
@@ -92,14 +90,14 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(
         val almacenes = mutableListOf<Almacen>()
         val db = this.readableDatabase
         val query =
-            "SELECT * FROM almacen" // El nombre de la tabla debe ser "almacen", no "almacenes"
+            "SELECT * FROM almacen"
 
         val cursor = db.rawQuery(query, null)
 
         if (cursor.moveToFirst()) {
             do {
                 val id =
-                    cursor.getInt(cursor.getColumnIndex("storeID")) // El nombre de la columna es "storeID"
+                    cursor.getInt(cursor.getColumnIndex("storeID"))
                 val storeName = cursor.getString(cursor.getColumnIndex("storeName"))
                 val storeLocation = cursor.getString(cursor.getColumnIndex("storeLocation"))
                 val isOpen = cursor.getInt(cursor.getColumnIndex("isOpen")) == 1
@@ -119,7 +117,6 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(
     fun deleteAlmacen(almacenId: Int) {
         val db = this.writableDatabase
 
-        // Define la cláusula WHERE para seleccionar el almacén que deseas eliminar por su ID
         val whereClause = "storeID = ?"
         val whereArgs = arrayOf(almacenId.toString())
         val rowsDeleted = db.delete("almacen", whereClause, whereArgs)
@@ -197,7 +194,6 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(
         values.put("isAvailable", if (electrodomestico.isAvailable == true) 1 else 0)
         values.put("storeID", almacenId)
 
-        // Inserta el registro en la tabla "electrodomesticos"
         db.insert("electrodomesticos", null, values)
         db.close()
     }
@@ -219,7 +215,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(
         val db = this.writableDatabase
         val values = ContentValues()
 
-        // Agrega los nuevos valores que deseas actualizar
+
         values.put("productName", nuevoNombre)
         values.put("price", nuevoPrecio)
         values.put("cantidad", nuevaCantidad)
