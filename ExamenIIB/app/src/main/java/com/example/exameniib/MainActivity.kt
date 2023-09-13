@@ -1,51 +1,62 @@
 package com.example.exameniib
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.google.firebase.firestore.FirebaseFirestore
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.exameniib.adapters.AlmacenAdapter
+import com.example.exameniib.models.Almacen
+import com.example.exameniib.viewholders.AlmacenViewHolder
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
-    private val db = FirebaseFirestore.getInstance()
+    private lateinit var adapter: AlmacenAdapter
+    private val arreglo: ArrayList<Almacen> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Llama a una función para agregar datos de prueba
-        agregarDatosDePrueba()
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_almacenes)
+        adapter = AlmacenAdapter(arreglo)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        AlmacenViewHolder.setAdapter(adapter)
+
+        consultarAlmacenes()
+
+
+        val botonCrearAlmacen = findViewById<Button>(R.id.btn_crear_almacen)
+
+        botonCrearAlmacen.setOnClickListener {
+            val intent = Intent(this, CreateAlmacen::class.java)
+            startActivity(intent)
+        }
     }
 
-    private fun agregarDatosDePrueba() {
-        // Accede a la colección "almacenes" en Firestore
+    private fun consultarAlmacenes() {
+        val db = Firebase.firestore
         val almacenRef = db.collection("almacen")
 
-        // Crea un nuevo mapa (documento) con datos de prueba
-        val nuevoAlmacen = hashMapOf(
-            "storeName" to "Mi Almacén",
-            "storeLocation" to "Av 12 de octubre",
-            "isOpen" to false,
-            "storeValue" to 50000.0
-        )
+        almacenRef.get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val almacenId = document.id
+                    val storeName = document.getString("storeName")
+                    val storeLocation = document.getString("storeLocation")
+                    val isOpen = document.getBoolean("isOpen") ?: false
+                    val storeValue = document.getDouble("storeValue") ?: 0.0
 
-        // Agrega el nuevo documento a la colección
-        almacenRef
-            .add(nuevoAlmacen)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "Documento agregado con ID: ${documentReference.id}")
+                    val nuevoAlmacen =
+                        Almacen(almacenId, storeName, storeLocation, isOpen, storeValue)
+                    arreglo.add(nuevoAlmacen)
+                }
+                adapter.notifyDataSetChanged()
             }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "Error al agregar documento", e)
-            }
-    }
-
-    companion object {
-        private const val TAG = "MainActivity"
+            .addOnFailureListener { }
     }
 }
-
-
-
-
-
