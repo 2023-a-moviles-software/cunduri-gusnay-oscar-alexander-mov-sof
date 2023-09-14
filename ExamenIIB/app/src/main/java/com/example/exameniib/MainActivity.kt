@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exameniib.adapters.AlmacenAdapter
 import com.example.exameniib.models.Almacen
+import com.example.exameniib.models.Electrodomestico
 import com.example.exameniib.viewholders.AlmacenViewHolder
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -21,13 +22,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //adapter.clearData()
+
+        consultarAlmacenes()
+
         val recyclerView = findViewById<RecyclerView>(R.id.rv_almacenes)
         adapter = AlmacenAdapter(arreglo)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         AlmacenViewHolder.setAdapter(adapter)
 
-        consultarAlmacenes()
 
 
         val botonCrearAlmacen = findViewById<Button>(R.id.btn_crear_almacen)
@@ -59,4 +63,6 @@ class MainActivity : AppCompatActivity() {
             }
             .addOnFailureListener { }
     }
+
+
 }

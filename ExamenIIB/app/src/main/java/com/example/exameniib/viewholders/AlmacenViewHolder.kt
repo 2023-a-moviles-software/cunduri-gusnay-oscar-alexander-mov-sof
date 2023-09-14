@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.exameniib.ActualizarAlmacen
+import com.example.exameniib.ListaProductos
 import com.example.exameniib.R
 import com.example.exameniib.adapters.AlmacenAdapter
 import com.example.exameniib.models.Almacen
@@ -31,15 +32,12 @@ class AlmacenViewHolder(view: View) : RecyclerView.ViewHolder(view),
 
     companion object {
         private lateinit var adapter: AlmacenAdapter
-        private lateinit var almacenList: MutableList<Almacen>
+
 
         fun setAdapter(almacenAdapter: AlmacenAdapter) {
             adapter = almacenAdapter
         }
 
-        fun setAlmacenList(list: MutableList<Almacen>){
-            almacenList = list
-        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -68,18 +66,18 @@ class AlmacenViewHolder(view: View) : RecyclerView.ViewHolder(view),
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.ver_productos -> {
-                /* val idAux = idAlmacen.text
+                 val idAux = currentAlmacen?.id
                  val nombreAlmacen = nombreAlmacen.text
                  val intent = Intent(itemView.context, ListaProductos::class.java)
                  intent.putExtra("idAProducto", idAux)
                  intent.putExtra("nombre", nombreAlmacen)
-                 itemView.context.startActivity(intent)*/
+                 itemView.context.startActivity(intent)
                 true
             }
 
             R.id.editar_almacen -> {
                 val idAux = currentAlmacen?.id
-                val intent = Intent(itemView.context, ActualizarAlmacen::class.java)
+                  val intent = Intent(itemView.context, ActualizarAlmacen::class.java)
                 intent.putExtra("idAProducto", idAux)
                 itemView.context.startActivity(intent)
                 true
@@ -89,6 +87,7 @@ class AlmacenViewHolder(view: View) : RecyclerView.ViewHolder(view),
                 currentAlmacen?.let { almacen ->
                     val almacenId = almacen.id
                     eliminarAlmacenEnFirestore(almacenId)
+                    adapter.clearData()
                     consultarAlmacenes()
                     adapter.updateData(arreglo)
                 }

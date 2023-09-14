@@ -3,6 +3,7 @@ package com.example.exameniib
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -33,8 +34,7 @@ class ActualizarAlmacen : AppCompatActivity() {
                         val nombre = almacenData["storeName"] as? String
                         val precio = almacenData["storeValue"] as? Double
                         val isOpen = almacenData["isOpen"] as? Boolean
-
-                        if (nombre != null && precio != null && isOpen != null) {
+                        if (nombre != null && isOpen != null) {
                             txtNombre.setText(nombre)
                             txtPrecio.setText(precio.toString())
                             chkIsOpen.isChecked = isOpen

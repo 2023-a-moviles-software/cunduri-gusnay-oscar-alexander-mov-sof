@@ -31,8 +31,9 @@ class AlmacenAdapter(
         notifyDataSetChanged()
     }
 
-
-
-
+    fun clearData() {
+        almacenList.clear()
+        notifyDataSetChanged()
+    }
 
 }

@@ -10,8 +10,9 @@ data class Almacen(
 
 data class Electrodomestico(
     val id: String?,
-    val productName: String,
-    val price: Double,
-    val cantidad: Int,
-    val almacenId: String,
+    val productName: String?,
+    val productType: String?,
+    val price: Double?,
+    val cantidad: Int?,
+    val almacenId: String?,
 )
